@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI StartUp Project - main</title>
+    <link rel="stylesheet" type="text/css" href="./src/css/common.css">
+    <link rel="stylesheet" type="text/css" href="./src/css/main.css">
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('.outer-menu-item').hover(function(){
+                $(this).find('.inner-menu').show();
+            }, function(){
+                $(this).find('.inner-menu').hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <nav id="main-navigation">
+            <div id="main-menu" class="nav-wrapper">
+                <div class="pull-left">
+                    <h1 class="master-title">Icon</h1>
+                </div>
+                <div class="pull-right">
+                    <ul class="outer-menu">
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/chat.png"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/lightbulb.png"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/user.png"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/menu.png"></span>
+                            <!--
+                            <ul class="inner-menu">
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                                <li class="inner-menu-item"><a href="#">데이터</a></li>
+                            </ul>
+                            -->
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="main-search" class="nav-wrapper">
+                <div class="clear-both">
+                    <div class="search-bar">
+                        <form>
+                            <input type="text" class="input-search" placeholder="내용을 입력해주세요">
+                            <input type="submit" class="input-search-submit" value="검색">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="content">
+            <section id="main-section">
+                <article>
+                    <div class="article-header">
+                        <h3>구독</h3>
+                    </div>
+                    <div class="article-body">
+                        <ul class="article-body-list">
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                        </ul>
+                        <div class="article-body-button-more">더보기</div>
+                    </div>
+                </article>
+                <article>
+                    <div class="article-header">
+                        <h3>최근방문</h3>
+                    </div>
+                    <div class="article-body">
+                        <ul class="article-body-list">
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                        </ul>
+                        <div class="article-body-button-more">더보기</div>
+                    </div>
+                </article>
+                <article>
+                    <div class="article-header">
+                        <h3>Hot Issue</h3>
+                    </div>
+                    <div class="article-body">
+                        <ul class="article-body-list">
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                            <li><img src="https://placehold.it/180x240"></li>
+                        </ul>
+                        <div class="article-body-button-more">더보기</div>
+                    </div>
+                </article>
+            </section>
+            
+            <!--
+            <aside id="main-aside">
+                <div class="aside-list">
+                    <h3>카테고리</h3>
+                    <ul>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                    </ul>
+                </div>
+                <div class="aside-list">
+                    <h3>최근글</h3>
+                    <ul>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                        <li><a href="#">데이터</a></li>
+                    </ul>
+                </div>
+            </aside>
+            -->
+        </div>
+        <!--
+        <footer id="main-footer">
+            <a href="#">ITCookBook HTML5 Programming</a>
+        </footer>
+        -->
+    </div>
+</body>
+</html>
