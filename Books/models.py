@@ -8,7 +8,6 @@ from enum import Enum
 
 
 class SeparatedValuesField(models.TextField):
-    __metaclass__ = models.SubfieldBase
 
     def __init__(self, *args, **kwargs):
         self.token = kwargs.pop('token', ',')
@@ -33,10 +32,10 @@ class SeparatedValuesField(models.TextField):
 class Book(models.Model):
     book_id = models.IntegerField(primary_key=True)
     created_date = models.DateTimeField(
-        default=timezone.now(), auto_now_add=True
+        auto_now_add=True
     )
     last_updated_date = models.DateTimeField(
-        default=timezone.now(), auto_now=True
+        auto_now=True
     )
 
     book_name = models.CharField(max_length=20)
@@ -46,8 +45,6 @@ class Book(models.Model):
     book_image_url = models.TextField()
 
     def create(self):
-        self.created_date = timezone.now()
-        self.last_updated_date = timezone.now()
         self.save()
 
     def __str__(self):
@@ -108,10 +105,10 @@ class Thread(models.Model):
     )
     thread_states = SeparatedValuesField()
     created_date = models.DateTimeField(
-        default=timezone.now(), auto_now_add=True
+        auto_now_add=True
     )
     last_updated_date = models.DateTimeField(
-        default=timezone.now(), auto_now=True
+        auto_now=True
     )
 
     class Meta:
@@ -129,8 +126,6 @@ class Thread(models.Model):
         self.thread_contrib_count = 1
         self.thread_likes = 0
         self.thread_visits = 0
-        self.created_date = timezone.now()
-        self.last_updated_date = timezone.now()
         self.save()
 
 
@@ -139,10 +134,10 @@ class Post(models.Model):
     post_id = SeparatedValuesField()
     post_writer = models.ForeignKey('User', on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
     created_date = models.DateTimeField(
-        default=timezone.now(), auto_now_add=True
+        auto_now_add=True
     )
     last_updated_date = models.DateTimeField(
-        default=timezone.now(), auto_now=True
+        auto_now=True
     )
     post_content = models.TextField()
     post_likes = models.IntegerField(
@@ -164,8 +159,6 @@ class Post(models.Model):
     def create(self):
         self.post_likes = 0
         self.post_adopted = False
-        self.created_date = timezone.now()
-        self.last_updated_date = timezone.now()
         self.save()
 
 
@@ -186,7 +179,7 @@ class UserType(Enum):
 class User(models.Model):
     user = models.IntegerField(primary_key=True)
     registered_date = models.DateTimeField(
-        default=timezone.now(), auto_now_add=True
+        auto_now_add=True
     )
     user_id = models.CharField(max_length=20)
     user_pw = models.CharField(max_length=32)
