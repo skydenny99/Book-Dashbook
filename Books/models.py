@@ -56,7 +56,7 @@ class Book(models.Model):
 
 class Chapter(models.Model):
     book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
-    chapter_id = models.IntegerField()
+    chapter_num = models.IntegerField()
     chapter_name = models.CharField(max_length=20)
     chapter_info = models.TextField()
     chapter_hash_tags = SeparatedValuesField()
@@ -66,7 +66,13 @@ class Chapter(models.Model):
     )
 
     class Meta:
-        unique_together = (('book_id', 'chapter_id'))
+        constraints = [
+            models.UniqueConstraint(fields=['book_id', 'chapter_num'], name='unique_book_chapter')
+        ]
+        indexes = [
+            models.Index(fields=['book_id', 'chapter_num']),
+            models.Index(fields=['book_id'], name='book_idx'),
+        ]
 
     def create(self):
         self.chapter_threads_count = 0
@@ -83,6 +89,7 @@ class ThreadState(Enum):
 
 
 class Thread(models.Model):
+    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
     thread_id = SeparatedValuesField()
     thread_name = models.CharField(max_length=30)
     thread_writer = models.ForeignKey('User', on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
@@ -107,6 +114,15 @@ class Thread(models.Model):
         default=timezone.now(), auto_now=True
     )
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['book_id', 'thread_id'], name='unique_book_thread')
+        ]
+        indexes = [
+            models.Index(fields=['book_id', 'thread_id']),
+            models.Index(fields=['book_id'], name='book_idx'),
+        ]
+
 
     def create(self):
         self.thread_count = 1
@@ -119,7 +135,7 @@ class Thread(models.Model):
 
 
 class Post(models.Model):
-    thread_id = models.ForeignKey('Thread', on_delete=models.CASCADE)
+    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
     post_id = SeparatedValuesField()
     post_writer = models.ForeignKey('User', on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
     created_date = models.DateTimeField(
@@ -137,7 +153,13 @@ class Post(models.Model):
     )
 
     class Meta:
-        unique_together = (('thread_id', 'post_id'))
+        constraints = [
+            models.UniqueConstraint(fields=['book_id', 'post_id'], name='unique_book_post')
+        ]
+        indexes = [
+            models.Index(fields=['book_id', 'post_id']),
+            models.Index(fields=['book_id'], name='book_idx'),
+        ]
 
     def create(self):
         self.post_likes = 0
