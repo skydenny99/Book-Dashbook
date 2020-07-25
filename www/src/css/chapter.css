@@ -1,0 +1,327 @@
+table{
+    table-layout:fixed;
+}
+
+/* 중앙 내용물 */
+article{
+    padding: 0 0px 10px 0px;
+    text-align: center;
+}
+
+    .article-header{
+        font-size: 25px;
+        text-align: left;
+        padding: 20px;
+        padding-left: 60px;
+    }
+    .article-title{
+        font-size: 25px;
+        font-weight: 500;
+        padding-bottom: 10px;
+    }
+    .article-date{font-size: 13px;}
+    .article-body {
+        font-size: 14px;
+    }
+        .article-body-list{
+        }
+            .article-body-list li{
+                display: inline-block;
+                margin-left: 20px;
+               
+            }
+            .article-body-list img{
+                border-radius: 10px;
+                border: 2px solid #222222;;
+            }
+        .article-body-button-more{
+            display: block;
+            background-color: #d4d4d4;
+            width:70px;
+            height:20px;
+
+            padding:7px;
+            margin: 10px auto;
+
+            border-radius: 10px;
+        }
+
+/* 챕터 타이틀 & 북 타이틀 */
+.book-title{
+    width:960px;
+    padding:5px;
+
+    text-align: left;
+    color: #e7e7e7;
+    font-weight: 700;
+    background-color: #707070;
+}
+.chapter-title{
+    width:960px;
+    padding:5px;
+
+    text-align: left;
+    font-weight: 700;
+    background-color: #C8C8C8;
+}
+
+/* 쓰레드 타이틀 */
+.thread-title{
+    width:100%;
+    border-bottom: 1px solid #C8C8C8;
+    font-size: 13px;
+    font-weight: 700;
+    background-color: #C8C8C8;
+}
+    .thread-title td{
+        padding:3px 10px 3px 10px;
+    }
+    .thread-title .thread-data:nth-child(1){
+        width:100px;
+    } 
+    .thread-title .thread-data:nth-child(2){
+        width:650px;
+        border-left: 1px solid #707070;
+        border-right: 1px solid #707070;
+    } 
+    .thread-title .thread-data:nth-child(3){
+        width:150px;
+    }  
+        .thread-title .thread-data div{
+            display:block;
+            width:100%;
+            text-align: left;
+            word-break:break-all;
+        }
+        .thread-title .thread-right *{
+            text-align: center !important;
+            
+        }
+            .thread-title .thread-right .thread-date{
+                float:left;
+                width:33%;
+            }
+            .thread-title .thread-right .thread-view{
+                float:left;
+                width:33%;
+            }
+            .thread-title .thread-right .thread-like{
+                float:left;
+                width:33%;
+            }
+                .thread-title .thread-right .thread-like img{
+                    width:20px;
+                }
+            .thread-title .thread-right .thread-follow{
+                clear:both;
+                width:100%;
+                margin-bottom:10px;
+            }
+
+/* 쓰레드 리스트 */
+.thread-list{
+    width:100%;
+    border-bottom: 1px solid #C8C8C8;
+    padding-bottom: 10px;
+}
+    .thread-list td{
+        padding:5px 10px 5px 10px;
+    }
+    .thread-list .thread-data:nth-child(1){
+        width:100px;
+    } 
+    .thread-list .thread-data:nth-child(2){
+        width:650px;
+        border-left: 1px solid #C8C8C8;
+        border-right: 1px solid #C8C8C8;
+    } 
+    .thread-list .thread-data:nth-child(3){
+        width:150px;
+    }  
+        .thread-list .thread-data div{
+            display:block;
+            width:100%;
+            text-align: left;
+            word-break:break-all;
+        }
+        .thread-list .thread-list-title{
+            font-size: 20px;
+        }
+        .thread-list .thread-list-count{
+            font-size: 15px;
+        }
+        .thread-list .thread-left *{
+            text-align: center !important;
+        }
+            .thread-list .thread-left .thread-userinfo{
+                margin-top: 5px;
+                font-size: 13px;
+            }
+            .thread-list .thread-left .thread-userinfo-icon img{
+                width:50px;
+                height:50px;
+                border-radius: 25px;
+                border: 1px solid #C8C8C8
+            }
+        .thread-list .thread-right *{
+            text-align: center !important;
+            
+        }
+            .thread-list .thread-right .thread-date{
+                float:left;
+                width:33%;
+                margin-top:15px;
+                margin-bottom:10px;
+            }
+            .thread-list .thread-right .thread-view{
+                float:left;
+                width:33%;
+                margin-top:25px;
+                margin-bottom:10px;
+            }
+            .thread-list .thread-right .thread-like{
+                float:left;
+                width:33%;
+                margin-bottom:10px;
+            }
+                .thread-list .thread-right .thread-like img{
+                    width:20px;
+                }
+            .thread-list .thread-right .thread-follow{
+                clear:both;
+                width:100%;
+                margin-bottom:10px;
+            }
+
+/* 입력양식 */
+.form{
+    margin-bottom: 50px;
+}
+#thread-form .thread-form-text{
+    margin-left:35px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 600;
+}
+#thread-form .thread-form-title{
+    width:90%;
+    height:10px;
+    margin-bottom: 20px;
+    padding:10px;
+    resize:none;
+    outline: 0;
+}
+#thread-form .thread-form-content{
+    width:90%;
+    height:300px;
+    margin-bottom: 20px;
+    padding:10px;
+    resize:none;
+    outline: 0;
+}
+#thread-form .thread-form-tag{
+    width:90%;
+    height:10px;
+    margin-bottom: 10px;
+    padding:10px;
+    resize:none;
+    outline: 0;
+}
+
+/* 입력 양식 - 버튼 */
+
+#thread-form .thread-form-bottom{
+    width:100%;
+    text-align: left;
+    margin:10px 0px 0px 5px;
+}
+#thread-form .thread-form-button{
+    display:block;
+    width:130px;
+    height:30px;
+    background-color: #585858;
+    color:white;
+    border-radius: 5px;
+    border:0;
+}
+#thread-form .thread-submit-button:active{
+    background-color: #797979;
+}
+
+#thread-form .thread-submit-button{
+    width:80px !important;
+}
+
+
+/* 입력 양식 - 검색 */
+
+.thread-search-bar{
+    width:562px;
+    margin:0 auto;
+    height: 26px;
+    padding: 7px;
+    text-align: center;
+}
+    .thread-search-bar .input-search{
+        display:block;
+        float: left;
+
+        background-color: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        border-radius: 7px 0 0 7px;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+
+        width: 500px; height: 24px;
+        padding: 0 0 0 10px;
+        font-size: 12px;
+        color: #242424;
+    }
+    .thread-search-bar .input-search::placeholder{
+        color: #838383;
+    }
+
+    .thread-search-bar .input-search:focus{
+        border-color: rgba(82,168,236,0.8);
+        outline: 0;
+        box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    }
+    .thread-search-bar .input-search-submit{
+        display: block;
+        float:left;
+
+        width: 50px; height: 26px;
+        border-radius: 0 7px 7px 0;
+        border: 1px solid #CCCCCC;
+
+        margin-left: -1px;
+
+        vertical-align: top;
+        display: inline-block;
+    }
+
+    /* 페이지 목록 */
+    .thread-page{
+        position: absolute;
+        left:50%;
+        margin-left:-100px;
+    }
+
+        .thread-page .thread-page-button{
+            float: left;
+            display:block;
+            width:30px;
+            height:30px;
+            margin:5px;
+
+            line-height: 30px;
+            background-color: #CCCCCC;
+            color:black;
+            font-size: 15px;
+            font-weight: 500;
+            border-radius: 5px;
+            border:0;
+        }
+        .thread-page .thread-page-button:active{
+            background-color: #797979;
+        }
+
