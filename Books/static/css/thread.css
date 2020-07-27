@@ -1,0 +1,250 @@
+table{
+    table-layout:fixed;
+}
+
+/* 중앙 내용물 */
+article{
+    padding: 0 0px 20px 0px;
+    text-align: center;
+}
+
+    .article-header{
+        font-size: 25px;
+        text-align: left;
+        padding: 20px;
+        padding-left: 60px;
+    }
+    .article-title{
+        font-size: 25px;
+        font-weight: 500;
+        padding-bottom: 10px;
+    }
+    .article-date{font-size: 13px;}
+    .article-body {
+        font-size: 14px;
+    }
+        .article-body-list{
+        }
+            .article-body-list li{
+                display: inline-block;
+                margin-left: 20px;
+               
+            }
+            .article-body-list img{
+                border-radius: 10px;
+                border: 2px solid #222222;;
+            }
+        .article-body-button-more{
+            display: block;
+            background-color: #d4d4d4;
+            width:70px;
+            height:20px;
+
+            padding:7px;
+            margin: 10px auto;
+
+            border-radius: 10px;
+        }
+
+/* 메인 쓰레드 */
+.thread-main{
+    width:100%;
+    border-bottom: 1px solid #C8C8C8;
+    padding-bottom: 10px;
+}
+    .thread-main tr{
+
+    }
+    .thread-main td{
+        padding:10px;
+    }
+    .thread-main .thread-data:nth-child(1){
+        width:100px;
+    } 
+    .thread-main .thread-data:nth-child(2){
+        width:650px;
+        border-left: 1px solid #C8C8C8;
+        border-right: 1px solid #C8C8C8;
+    } 
+    .thread-main .thread-data:nth-child(3){
+        width:150px;
+    }  
+        .thread-main .thread-data div{
+            display:block;
+            width:100%;
+            text-align: left;
+            word-break:break-all;
+        }
+        .thread-main .thread-main-title{
+            font-size: 20px;
+        }
+        .thread-main .thread-main-count{
+            font-size: 15px;
+        }
+        .thread-main .thread-right *{
+            text-align: center !important;
+            
+        }
+            .thread-main .thread-right .thread-date{
+                float:left;
+                width:33%;
+                margin-top:15px;
+                margin-bottom:10px;
+            }
+            .thread-main .thread-right .thread-view{
+                float:left;
+                width:33%;
+                margin-top:25px;
+                margin-bottom:10px;
+            }
+            .thread-main .thread-right .thread-like{
+                float:left;
+                width:33%;
+                margin-bottom:10px;
+            }
+                .thread-main .thread-right .thread-like img{
+                    width:20px;
+                }
+            .thread-main .thread-right .thread-follow{
+                clear:both;
+                width:100%;
+                margin-bottom:10px;
+            }
+        
+/* 서브 쓰레드 */
+.thread-sub{
+    width:100%;
+    border-bottom: 1px solid #C8C8C8;
+    padding-bottom: 10px;
+}
+    .thread-sub td{
+        padding:10px;
+        vertical-align: top;
+    }
+    .thread-sub .thread-data:nth-child(1){
+        width:100px;
+    } 
+    .thread-sub .thread-data:nth-child(2){
+        width:650px;
+        border-left: 1px solid #C8C8C8;
+        border-right: 1px solid #C8C8C8;
+    } 
+    .thread-sub .thread-data:nth-child(3){
+        width:150px;
+    }  
+        .thread-sub .thread-data div{
+            display:block;
+            width:100%;
+            text-align: left;
+            word-break:break-all;
+        }
+        .thread-sub .thread-left *{
+            text-align: center !important;
+        }
+            .thread-sub .thread-left .thread-userinfo{
+                margin-bottom: 15px;
+            }
+            .thread-sub .thread-left .thread-userinfo-icon img{
+                width:80px;
+                height:80px;
+                border-radius: 40px;
+                border: 1px solid #C8C8C8
+            }
+
+        .thread-sub .thread-center{
+
+        }
+            .thread-sub .thread-center .thread-comment-wrapper{
+                width:94%;
+                margin-top:10px
+            }
+            .thread-sub .thread-center .thread-comment{
+                padding:10px 20px 10px 20px;
+                background-color: #f3f3f3;
+                box-shadow: 0 4px 6px rgba(100,100,100,0.5);;
+                font-size: 15px;
+            }
+                .thread-sub .thread-center .thread-comment .thread-comment-content{
+                    display:inline-block;
+                    width:75%;
+                    min-height:50px;
+                }
+                .thread-sub .thread-center .thread-comment .thread-comment-info{
+                    display:inline-block;
+                    width:20%;
+                    float:right;
+                }
+                    .thread-sub .thread-center .thread-comment .thread-comment-info img{
+                        width:40px;
+                        height:40px;
+                        border-radius: 20px;
+                        border: 1px solid #C8C8C8;
+                    }
+                    .thread-sub .thread-center .thread-comment .thread-comment-info > div{
+                        width:50%;
+                        float:left;
+                    }
+                    .thread-sub .thread-center .thread-comment .thread-comment-info-name{
+                        font-size: 20px;
+                    }
+                    .thread-sub .thread-center .thread-comment .thread-comment-info-date{
+                        font-size: 12px;
+                    }
+            .thread-sub .thread-center .thread-comment-mod{
+                width:100%;
+                margin-top: 10px;
+                text-align: right;
+            }
+                .thread-sub .thread-center .thread-comment-mod *{
+                    margin-left:30px;
+                }
+        .thread-sub .thread-right *{
+            text-align: center !important;
+            
+        }
+            .thread-sub .thread-right .thread-date{
+                float:left;
+                width:33%;
+                margin-top:15px;
+                margin-bottom:10px;
+            }
+            .thread-sub .thread-right .thread-view{
+                float:left;
+                width:33%;
+                margin-top:25px;
+                margin-bottom:10px;
+            }
+            .thread-sub .thread-right .thread-like{
+                float:left;
+                width:33%;
+                margin-bottom:10px;
+            }
+                .thread-sub .thread-right .thread-like img{
+                    width:20px;
+                }
+
+/* 입력 양식 */
+#thread-form .thread-form-content{
+    width:90%;
+    height:300px;
+    padding:10px;
+    resize:none;
+    outline: 0;
+}
+#thread-form .thread-form-bottom{
+    width:100%;
+    text-align: left;
+    margin:10px 0px 0px 35px;
+}
+#thread-form .thread-form-button{
+    display:block;
+    width:100px;
+    height:30px;
+    background-color: #585858;
+    color:white;
+    border-radius: 5px;
+    border:0;
+}
+#thread-form .thread-form-button:active{
+    background-color: #797979;
+}

@@ -88,7 +88,8 @@ class ThreadState(Enum):
 class Thread(models.Model):
     book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
     thread_id = SeparatedValuesField()
-    thread_name = models.CharField(max_length=30)
+    thread_title = models.CharField(max_length=50)
+    thread_text = models.TextField()
     thread_writer = models.ForeignKey('User', on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
     thread_hash_tags = SeparatedValuesField()
     thread_count = models.IntegerField(
@@ -103,7 +104,8 @@ class Thread(models.Model):
     thread_visits = models.IntegerField(
         default=0
     )
-    thread_states = SeparatedValuesField()
+    thread_states = SeparatedValuesField(blank=True,
+                                         null=True)
     created_date = models.DateTimeField(
         auto_now_add=True
     )
@@ -139,7 +141,7 @@ class Post(models.Model):
     last_updated_date = models.DateTimeField(
         auto_now=True
     )
-    post_content = models.TextField()
+    post_text = models.TextField()
     post_likes = models.IntegerField(
         default=0
     )
