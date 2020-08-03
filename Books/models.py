@@ -143,7 +143,7 @@ class Book(models.Model):
         auto_now=True
     )
 
-    book_name = models.CharField(max_length=20)
+    book_title = models.CharField(max_length=20)
     book_hash_tags = models.TextField()
     book_author = models.CharField(max_length=50)
     book_info = models.TextField()
@@ -154,24 +154,20 @@ class Book(models.Model):
             models.Index(fields=['book_id']),
         ]
 
-
-    def create(self):
-        self.save()
+    def get_hash_tag(self):
+        return self.book_hash_tags.split(',')
 
     def __str__(self):
-        return str(self.book_id) + ':' + self.book_name
+        return str(self.book_id) + ':' + self.book_title
 
 
 class Chapter(models.Model):
     book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
     chapter_num = models.IntegerField()
-    chapter_name = models.CharField(max_length=20)
+    chapter_title = models.CharField(max_length=20)
     chapter_info = models.TextField()
     chapter_hash_tags = models.TextField()
     chapter_subs = models.TextField()
-    chapter_threads_count = models.IntegerField(
-        default=0
-    )
 
     class Meta:
         constraints = [
@@ -181,9 +177,21 @@ class Chapter(models.Model):
             models.Index(fields=['book_id', 'chapter_num']),
         ]
 
-    def create(self):
-        self.chapter_threads_count = 0
-        self.save()
+    def chapter_contrib_count(self):
+        threads = Thread.objects.filter(book_id=self.book_id).filter(chapter_id=self)
+        count = 0
+        for thread in threads:
+            count += thread.thread_contrib_count
+        return count
+
+    def chapter_thread_count(self):
+        return len(Thread.objects.filter(book_id=self.book_id).filter(chapter_id=self))
+
+    def get_chapter_subs(self):
+        return self.chapter_subs.split(',')
+
+    def get_hash_tag(self):
+        return self.chapter_hash_tags.split(',')
 
     def __str__(self):
         return str(self.book_id) + ':' + str(self.id) + ':' + self.chapter_name
@@ -231,6 +239,9 @@ class Thread(models.Model):
             models.Index(fields=['book_id', 'chapter_id', 'id']),
         ]
 
+    def get_hash_tag(self):
+        return self.thread_hash_tags.split(',')
+
     def __str__(self):
         return str(self.book_id) + ':' + str(self.id) + ':' + self.thread_title
 
@@ -269,7 +280,7 @@ class Post(models.Model):
 class Comment(models.Model):
     book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
     thread_id = models.ForeignKey('Thread', on_delete=models.CASCADE)
-    post_id = models.ForeignKey('Post', on_delete=models.CASCADE)
+    post_id = models.ForeignKey('Post', on_delete=models.CASCADE, null=True, blank=True)
     comment_writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # 유저 탈퇴시 모든 작성 내용 삭제?
     # post_writer = models.CharField(max_length=30)
     created_date = models.DateTimeField(

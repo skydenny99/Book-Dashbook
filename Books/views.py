@@ -10,16 +10,17 @@ def main_home(request):
     return render(request, 'Books/main.html', {})
 
 
-def book_show(request):
-    chapters = Chapter.objects.filter(book_id__exact=Book.objects.get(pk=request.POST.get('book_id'))).order_by('chapter_num')
-    return render(request, 'Books/book.html', {'chapters':chapters})
+def book_show(request, book_id=None):
+    book = get_object_or_404(Book, pk=book_id)
+    chapters = Chapter.objects.filter(book_id__exact=book).order_by('chapter_num')
+    return render(request, 'Books/book.html', {'book':book, 'chapters':chapters})
 
 
 def chapter_show(request, book_id=None, chapter_num=None):
-    book = Book.objects.get(pk=book_id)
+    book = get_object_or_404(Book, pk=book_id)
     chapter = Chapter.objects.filter(book_id=book).get(chapter_num=chapter_num)
     threads = Thread.objects.filter(book_id__exact=book).filter(chapter_id__exact=chapter).order_by('-created_date')
-    return render(request, 'Books/chapter.html', {'book_id':book_id, 'threads':threads, 'chapter_num':chapter_num})
+    return render(request, 'Books/chapter.html', {'book':book, 'threads':threads, 'chapter':chapter})
 
 
 def thread_show(request, book_id=None, chapter_num=None, thread_id=None):
@@ -34,6 +35,7 @@ def thread_show(request, book_id=None, chapter_num=None, thread_id=None):
     thread.thread_count = len(posts)
     comments = Comment.objects.filter(book_id__exact=Book.objects.get(pk=book_id)).\
         filter(thread_id__exact=Thread.objects.get(pk=thread_id))
+
     return render(request, 'Books/thread.html', {'thread':thread, 'posts':posts, 'chapter_num':chapter_num, 'comments':comments})
 
 
@@ -52,7 +54,9 @@ def thread_new(request, book_id=None, chapter_num=None):
             return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread.id)
     else:
         form = ThreadForm()
-    return render(request, 'Books/thread_write.html', {'form':form})
+        book = Book.objects.get(pk=book_id)
+        chapter = Chapter.objects.filter(book_id=book).get(chapter_num=chapter_num)
+    return render(request, 'Books/thread_write.html', {'book':book, 'chapter':chapter, 'form':form})
 
 
 def post_new(request, book_id=None, chapter_num=None, thread_id=None):
@@ -67,6 +71,11 @@ def post_new(request, book_id=None, chapter_num=None, thread_id=None):
             post.thread_id = thread
             # thread = Thread.objects.get(request.POST['id'])
             post.post_writer = user
+            posts = Post.objects.filter(book_id=post.book_id).filter(thread_id=thread).filter(post_writer=user)
+            if len(posts) == 0:
+                thread.thread_contrib_count += 1
+                thread.save()
+
             post.save()
             return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread_id)
     else:
@@ -83,7 +92,8 @@ def comment_new(request, book_id, chapter_num=None, thread_id=None, post_id=None
             comment = form.save(commit=False)
             comment.book_id = Book.objects.get(pk=book_id)
             comment.thread_id = Thread.objects.get(pk=thread_id)
-            comment.post_id = Post.objects.get(pk=post_id)
+            if post_id:
+                comment.post_id = Post.objects.get(pk=post_id)
             # thread = Thread.objects.get(request.POST['id'])
             comment.comment_writer = user
             comment.save()
