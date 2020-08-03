@@ -2,193 +2,35 @@ from idlelib.idle_test.test_run import S
 
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 from enum import Enum
+from django.contrib.auth.models import BaseUserManager, AbstractUser
 
 # Create your models here.
 
-
-class SeparatedValuesField(models.TextField):
-
-    def __init__(self, *args, **kwargs):
-        self.token = kwargs.pop('token', ',')
-        super(SeparatedValuesField, self).__init__(*args, **kwargs)
-
-    def to_python(self, value):
-        if not value: return
-        if isinstance(value, list):
-            return value
-        return value.split(self.token)
-
-    def get_db_prep_value(self, value):
-        if not value: return
-        assert(isinstance(value, list) or isinstance(value, tuple))
-        return self.token.join([str(s, 'utf-8') for s in value])
-
-    def value_to_string(self, obj):
-        value = self._get_val_from_obj(obj)
-        return self.get_db_prep_value(value)
-
-
-class Book(models.Model):
-    book_id = models.IntegerField(primary_key=True)
-    created_date = models.DateTimeField(
-        auto_now_add=True
-    )
-    last_updated_date = models.DateTimeField(
-        auto_now=True
-    )
-
-    book_name = models.CharField(max_length=20)
-    book_hash_tags = SeparatedValuesField()
-    book_author = models.CharField(max_length=50)
-    book_info = models.TextField()
-    book_image_url = models.TextField()
-
-    def create(self):
-        self.save()
-
-    def __str__(self):
-        return self.book_id + ':' + self.book_name
-
-
-class Chapter(models.Model):
-    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
-    chapter_num = models.IntegerField()
-    chapter_name = models.CharField(max_length=20)
-    chapter_info = models.TextField()
-    chapter_hash_tags = SeparatedValuesField()
-    chapter_subs = SeparatedValuesField()
-    chapter_threads_count = models.IntegerField(
-        default=0
-    )
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['book_id', 'chapter_num'], name='unique_book_chapter')
-        ]
-        indexes = [
-            models.Index(fields=['book_id', 'chapter_num']),
-            models.Index(fields=['book_id'], name='book_idx'),
-        ]
-
-    def create(self):
-        self.chapter_threads_count = 0
-        self.save()
-
-    def __str__(self):
-        return self.book_id + ':' + self.chapter_id + ':' + self.chapter_name
-
-
-class ThreadState(Enum):
-    AUTHOR_HELPED = "Author contributed"
-    KEEP_GOING = "Discussion keep going"
-    ANSWERED = "Answered"
-
-
-class Thread(models.Model):
-    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
-    thread_id = SeparatedValuesField()
-    thread_title = models.CharField(max_length=50)
-    thread_text = models.TextField()
-    thread_writer = models.ForeignKey('User', on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
-    thread_hash_tags = SeparatedValuesField()
-    thread_count = models.IntegerField(
-        default=1
-    )
-    thread_contrib_count = models.IntegerField(
-        default=1
-    )
-    thread_likes = models.IntegerField(
-        default=0
-    )
-    thread_visits = models.IntegerField(
-        default=0
-    )
-    thread_states = SeparatedValuesField(blank=True,
-                                         null=True)
-    created_date = models.DateTimeField(
-        auto_now_add=True
-    )
-    last_updated_date = models.DateTimeField(
-        auto_now=True
-    )
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['book_id', 'thread_id'], name='unique_book_thread')
-        ]
-        indexes = [
-            models.Index(fields=['book_id', 'thread_id']),
-            models.Index(fields=['book_id'], name='book_idx'),
-        ]
-
-
-    def create(self):
-        self.thread_count = 1
-        self.thread_contrib_count = 1
-        self.thread_likes = 0
-        self.thread_visits = 0
-        self.save()
-
-
-class Post(models.Model):
-    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
-    post_id = SeparatedValuesField()
-    post_writer = models.ForeignKey('User', on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
-    created_date = models.DateTimeField(
-        auto_now_add=True
-    )
-    last_updated_date = models.DateTimeField(
-        auto_now=True
-    )
-    post_text = models.TextField()
-    post_likes = models.IntegerField(
-        default=0
-    )
-    post_adopted = models.BooleanField(
-        default=False,
-    )
-
-    class Meta:
-        constraints = [
-            models.UniqueConstraint(fields=['book_id', 'post_id'], name='unique_book_post')
-        ]
-        indexes = [
-            models.Index(fields=['book_id', 'post_id']),
-            models.Index(fields=['book_id'], name='book_idx'),
-        ]
-
-    def create(self):
-        self.post_likes = 0
-        self.post_adopted = False
-        self.save()
-
-
 """
-class UserJob(Enum):
-    AUTHOR_HELPED = "Author contributed"
-    KEEP_GOING = "Discussion keep going"
-    ANSWERED = "Answered"
-"""
-
-
 class UserType(Enum):
     MANAGE = "Manager of service"
     AUTHOR = "Author of Book"
     NORMAL = "Normal user"
 
 
-class User(models.Model):
-    user = models.IntegerField(primary_key=True)
+class User(AbstractUser):
+
+    user_email = models.EmailField(
+        verbose_name='email address',
+        max_length=255,
+        unique=True,
+        primary_key=True
+    )
+    user_pw = models.CharField(max_length=50)
+    user_nickname = models.CharField(max_length=20, unique=True)
+    user_name = models.CharField(max_length=32)
+    user_job = models.CharField(max_length=20)
     registered_date = models.DateTimeField(
         auto_now_add=True
     )
-    user_id = models.CharField(max_length=20)
-    user_pw = models.CharField(max_length=32)
-    user_nickname = models.CharField(max_length=20)
-    user_name = models.CharField(max_length=32)
-    user_job = models.CharField(max_length=20)
-    user_email = models.CharField(max_length=100)
+
     user_info = models.TextField(
         blank=True, null=True
     )
@@ -205,12 +47,246 @@ class User(models.Model):
     user_subscribe = SeparatedValuesField()
     # 해쉬태그별 TOP4, 유저 작성 쓰레드 수
 
-    def create(self):
-        user_rank = 1
-        
-        self.save()
+    active = models.BooleanField(default=True)
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
 
-    def modify(self):
-        self.save()
+    USERNAME_FIELD = 'user_email'
+    REQUIRED_FIELDS = ['user_nickname', 'user_name', 'user_job']
 
+    class Meta:
+        indexes = [
+            models.Index(fields=['user_right', 'user_email']),
+        ]
+
+    def get_full_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def get_short_name(self):
+        # The user is identified by their email address
+        return self.email
+
+    def __str__(self):              # __unicode__ on Python 2
+        return self.email
+
+    def has_perm(self, perm, obj=None):
+        "Does the user have a specific permission?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    def has_module_perms(self, app_label):
+        "Does the user have permissions to view the app `app_label`?"
+        # Simplest possible answer: Yes, always
+        return True
+
+    @property
+    def is_staff(self):
+        "Is the user a member of staff?"
+        return self.staff
+
+    @property
+    def is_admin(self):
+        "Is the user a admin member?"
+        return self.admin
+
+    @property
+    def is_active(self):
+        "Is the user active?"
+        return self.active
+
+
+class UserManager(BaseUserManager):
+    def create_user(self, email, password=None):
+        if not email:
+            raise ValueError('Must email')
+
+        user = self.model(email=self.normalize_email(email))
+
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_staffuser(self, email, password):
+        user = self.create_user(
+            email,
+            password
+        )
+        user.staff = True
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, password):
+        user = self.create_user(
+            email,
+            password
+        )
+        user.staff = True
+        user.admin = True
+        user.save(using=self._db)
+        return user
     pass
+
+
+class User(AbstractUser): # from step 2
+    ...
+    objects = UserManager()
+"""
+
+
+class Book(models.Model):
+    book_id = models.AutoField(primary_key=True)
+    created_date = models.DateTimeField(
+        auto_now_add=True
+    )
+    last_updated_date = models.DateTimeField(
+        auto_now=True
+    )
+
+    book_name = models.CharField(max_length=20)
+    book_hash_tags = models.TextField()
+    book_author = models.CharField(max_length=50)
+    book_info = models.TextField()
+    book_image_url = models.TextField()
+
+    class Meta:
+        indexes = [
+            models.Index(fields=['book_id']),
+        ]
+
+
+    def create(self):
+        self.save()
+
+    def __str__(self):
+        return str(self.book_id) + ':' + self.book_name
+
+
+class Chapter(models.Model):
+    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
+    chapter_num = models.IntegerField()
+    chapter_name = models.CharField(max_length=20)
+    chapter_info = models.TextField()
+    chapter_hash_tags = models.TextField()
+    chapter_subs = models.TextField()
+    chapter_threads_count = models.IntegerField(
+        default=0
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['book_id', 'chapter_num'], name='unique_book_chapter')
+        ]
+        indexes = [
+            models.Index(fields=['book_id', 'chapter_num']),
+        ]
+
+    def create(self):
+        self.chapter_threads_count = 0
+        self.save()
+
+    def __str__(self):
+        return str(self.book_id) + ':' + str(self.id) + ':' + self.chapter_name
+
+
+class ThreadState(Enum):
+    AUTHOR_HELPED = "Author contributed"
+    KEEP_GOING = "Discussion keep going"
+    ANSWERED = "Answered"
+
+
+class Thread(models.Model):
+    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
+    chapter_id = models.ForeignKey('Chapter', on_delete=models.CASCADE)
+    thread_title = models.CharField(max_length=50)
+    thread_text = models.TextField()
+    thread_writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
+    # thread_writer = models.CharField(max_length=30)
+    thread_hash_tags = models.TextField()
+    thread_count = models.IntegerField(
+        default=0
+    )
+    thread_contrib_count = models.IntegerField(
+        default=1
+    )
+    thread_likes = models.IntegerField(
+        default=0
+    )
+    thread_views = models.IntegerField(
+        default=0
+    )
+    thread_states = models.TextField(blank=True, null=True)
+    created_date = models.DateTimeField(
+        auto_now_add=True
+    )
+    last_updated_date = models.DateTimeField(
+        auto_now=True
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['book_id', 'id'], name='unique_book_thread')
+        ]
+        indexes = [
+            models.Index(fields=['book_id', 'chapter_id', 'id']),
+        ]
+
+    def __str__(self):
+        return str(self.book_id) + ':' + str(self.id) + ':' + self.thread_title
+
+
+class Post(models.Model):
+    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
+    thread_id = models.ForeignKey('Thread', on_delete=models.CASCADE)
+    post_writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) # 유저 탈퇴시 모든 작성 내용 삭제?
+    # post_writer = models.CharField(max_length=30)
+    created_date = models.DateTimeField(
+        auto_now_add=True
+    )
+    last_updated_date = models.DateTimeField(
+        auto_now=True
+    )
+    post_text = models.TextField()
+    post_likes = models.IntegerField(
+        default=0
+    )
+    post_adopted = models.BooleanField(
+        default=False,
+    )
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['book_id', 'id'], name='unique_book_post')
+        ]
+        indexes = [
+            models.Index(fields=['book_id', 'thread_id', 'id']),
+        ]
+
+    def __str__(self):
+        return str(self.thread_id) + ':' + str(self.id)
+
+
+class Comment(models.Model):
+    book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
+    thread_id = models.ForeignKey('Thread', on_delete=models.CASCADE)
+    post_id = models.ForeignKey('Post', on_delete=models.CASCADE)
+    comment_writer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)  # 유저 탈퇴시 모든 작성 내용 삭제?
+    # post_writer = models.CharField(max_length=30)
+    created_date = models.DateTimeField(
+        auto_now_add=True
+    )
+    last_updated_date = models.DateTimeField(
+        auto_now=True
+    )
+    comment_text = models.CharField(max_length=255)
+    pass
+
+
+"""
+class UserJob(Enum):
+    AUTHOR_HELPED = "Author contributed"
+    KEEP_GOING = "Discussion keep going"
+    ANSWERED = "Answered"
+"""
+
+

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI StartUp Project - Thread</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/thread.css' %}">
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('.outer-menu-item').hover(function(){
+                $(this).find('.inner-menu').show();
+            }, function(){
+                $(this).find('.inner-menu').hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <nav id="main-navigation">
+            <div id="main-menu" class="nav-wrapper">
+                <div class="pull-left">
+                    <h1 class="master-title">Icon</h1>
+                </div>
+                <div class="pull-right">
+                    <ul class="outer-menu">
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="{% static 'icon/chat.png' %}"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="{% static 'icon/lightbulb.png' %}"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="{% static 'icon/user.png' %}"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="{% static 'icon/menu.png' %}"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="main-search" class="nav-wrapper">
+                <div class="clear-both">
+                    <div class="search-bar">
+                        <form>
+                            <input type="text" class="input-search" placeholder="내용을 입력해주세요">
+                            <input type="submit" class="input-search-submit" value="검색">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="content">
+            <section id="main-section">
+                <article>
+                    <table class="thread-main">
+                        <tr>
+                            <td class="thread-data thread-left">
+                                <div class="thread-id">726-25</div>
+                            </td>
+                            <td class="thread-data thread-center">
+                                <div class="tag-wrapper clear-both"><p class="tag">#확률과 통계</p><p class="tag">#확률질량함수</p><p class="tag">#정규분포</p></div>
+                                <div class="thread-main-title clear-both">{{ thread.thread_title }}</div>
+                                <div class="thread-main-count clear-both">● 쓰레드 수 : {{ thread.thread_count }}</div>
+                                <div class="thread-main-count clear-both">● 기여자 수 : {{ thread.thread_contrib_count }}</div>
+                            </td>
+                            <td class="thread-data thread-right">
+                                <div class="thread-date">{{ thread.created_date|date:"M-d" }}<br>{{ thread.created_date|time:"H:i" }}</div>
+                                <div class="thread-view">{{ thread.thread_views }}</div>
+                                <div class="thread-like">
+                                    <div><img src="{% static 'icon/thumbs-up.png' %}"></div>
+                                    <div>{{ thread.thread_likes }}</div>
+                                    <div><img src="{% static 'icon/thumbs-down.png' %}"></div>
+                                </div>
+                                <div class="thread-follow">팔로우 ♥</div>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+                <article>
+                    <table class="thread-sub">
+                        <tr>
+                            <td class="thread-data thread-left">
+                                <div class="thread-userinfo">
+                                    <div class="thread-userinfo-icon"><img src="{% static 'img/profile.png' %}"></div>
+                                    <div class="thread-userinfo-name">{{ thread.thread_writer }}</div>
+                                </div>
+                                <div class="thread-date">{{ thread.created_date|date:"M-d" }}<br>{{ thread.created_date|time:"H:i" }}</div>
+                            </td>
+
+                            <td class="thread-data thread-center">
+                                <div class="thread-sub-text">{{ thread.thread_text }}</div>
+                                <div class="thread-comment-wrapper">
+                                    <div class="thread-comment">
+                                        <div class="thread-comment-content">어쩌구 저쩌구</div>
+                                        <div class="thread-comment-info">
+                                            <div><img src="{% static 'img/profile.png' %}"></div>
+                                            <div>
+                                                <div class="thread-comment-info-name">홍길동</div>
+                                                <div class="thread-comment-info-date">10:56 AM</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="thread-comment">
+                                        <div class="thread-comment-content">어쩌구 저쩌구</div>
+                                        <div class="thread-comment-info">
+                                            <div><img src="{% static 'img/profile.png' %}"></div>
+                                            <div>
+                                                <div class="thread-comment-info-name">홍길동</div>
+                                                <div class="thread-comment-info-date">10:56 AM</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="thread-comment-mod"><a href="#">Edit</a><a href="#">Add Comment</a></div>
+                            </td>
+
+                            <td class="thread-data thread-right">
+                                <div>
+                                    <div class="thread-date">04-19<br>16:31</div>
+                                    <div class="thread-view">43</div>
+                                    <div class="thread-like">
+                                        <div><img src="{% static 'icon/thumbs-up.png' %}"></div>
+                                        <div>43</div>
+                                        <div><img src="{% static 'icon/thumbs-down.png' %}"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+                {% for post in posts %}
+                <article>
+                    <table class="thread-sub">
+                        <tr>
+                            <td class="thread-data thread-left">
+                                <div class="thread-userinfo">
+                                    <div class="thread-userinfo-icon"><img src="{% static 'img/profile.png' %}"></div>
+                                    <div class="thread-userinfo-name">{{ post.post_writer }}</div>
+                                </div>
+                                <div class="thread-date">{{ post.created_date|date:"M-d" }}<br>{{ post.created_date|time:"H:i" }}</div>
+                            </td>
+
+                            <td class="thread-data thread-center">
+                                <div class="thread-sub-text">{{ post.post_text }}</div>
+                                <div class="thread-comment-wrapper">
+                                    {% for comment in comments %}
+                                    {% if comment.post_id == post %}
+                                        <div class="thread-comment">
+                                            <div class="thread-comment-content">{{comment.comment_text}}</div>
+                                            <div class="thread-comment-info">
+                                                <div><img src="{% static 'img/profile.png' %}"></div>
+                                                <div>
+                                                    <div class="thread-comment-info-name">{{comment.comment_writer}}</div>
+                                                    <div class="thread-comment-info-date">{{ post.last_updated_date|time:"H:i" }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <div class="thread-comment-mod"><a href="#">Edit</a><a href="#">Add Comment</a></div>
+                            </td>
+
+                            <td class="thread-data thread-right">
+                                <div>
+                                    <div class="thread-date">{{ post.last_updated_date|date:"M-d" }}<br>{{ post.last_updated_date|time:"H:i" }}</div>
+                                    <div class="thread-view">{{ thread.thread_views }}</div>
+                                    <div class="thread-like">
+                                        <div><img src="{% static 'icon/thumbs-up.png' %}"></div>
+                                        <div>43</div>
+                                        <div><img src="{% static 'icon/thumbs-down.png' %}"></div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+                {% endfor %}
+                <article>
+                    <form id="thread-form" action="{% url 'post_new' thread.book_id.book_id chapter_num thread.id %}" method="post">{% csrf_token %}
+                        <textarea form="thread-form" rows="10" class="thread-form-content" placeholder="내용을 입력하세요" name="post_text"></textarea>
+                        <br>
+                        <div class="thread-form-bottom"><input class="thread-form-button" type="submit" value="Answer"></div>
+                        
+                    </form>
+                </article>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

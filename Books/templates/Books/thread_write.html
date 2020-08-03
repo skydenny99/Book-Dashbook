@@ -69,13 +69,13 @@
                 </article>
                
                 <article class="form">
-                    <form id="thread-form" action="" method="post">
+                    <form id="thread-form" action="" method="post">{% csrf_token %}
                         <div class="thread-form-text">제목</div>
-                        <input class="thread-form-title" type="text" placeholder="내용을 입력하세요" name="title">
+                        <input class="thread-form-title" type="text" placeholder="내용을 입력하세요" name="thread_title">
                         <div class="thread-form-text">내용</div>
-                        <textarea form="thread-form" rows="10" class="thread-form-content" placeholder="내용을 입력하세요" name="content"></textarea>
+                        <textarea form="thread-form" rows="10" class="thread-form-content" placeholder="내용을 입력하세요" name="thread_text"></textarea>
                         <div class="thread-form-text">해쉬태그</div>
-                        <input class="thread-form-tag" type="text" placeholder="내용을 입력하세요" name="tag">
+                        <input class="thread-form-tag" type="text" placeholder="내용을 입력하세요" name="thread_hash_tags">
                         <div class="thread-form-bottom"><input class="thread-form-button thread-submit-button" type="submit" value="Answer"></div>
                     </form>
                 </article>
