@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HCI StartUp Project - Book</title>
+    <link rel="stylesheet" type="text/css" href="./src/css/common.css">
+    <link rel="stylesheet" type="text/css" href="./src/css/book.css">
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function(){
+            $('.outer-menu-item').hover(function(){
+                $(this).find('.inner-menu').show();
+            }, function(){
+                $(this).find('.inner-menu').hide();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="page-wrapper">
+        <nav id="main-navigation">
+            <div id="main-menu" class="nav-wrapper">
+                <div class="pull-left">
+                    <h1 class="master-title">Icon</h1>
+                </div>
+                <div class="pull-right">
+                    <ul class="outer-menu">
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/chat.png"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/lightbulb.png"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/user.png"></span>
+                        </li>
+                        <li class="outer-menu-item">
+                            <span class="menu-title"><img src="src/icon/menu.png"></span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="main-search" class="nav-wrapper">
+                <div class="clear-both">
+                    <div class="search-bar">
+                        <form>
+                            <input type="text" class="input-search" placeholder="내용을 입력해주세요">
+                            <input type="submit" class="input-search-submit" value="검색">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <div id="content">
+            <section id="main-section">
+                <article>
+                    <table class="book-info">
+                        <tr>
+                            <td class="book-info-left">
+                                <div class="book-info-thumbnail"><img src="https://placehold.it/180x240"></div>
+                                <div class="book-info-icons">
+                                    <div class="book-info-heart pull-left"><img src="src/icon/heart.png"></div>
+                                    <div class="book-info-notification pull-right"><img src="src/icon/bell.png"></div>
+                                </div>
+                                
+                            </td>
+                            <td class="book-info-right">
+                                <div class="book-info-rating pull-right">평점 4.5
+                                    <img src="src/icon/star-full.png">
+                                    <img src="src/icon/star-full.png">
+                                    <img src="src/icon/star-full.png">
+                                    <img src="src/icon/star-full.png">
+                                    <img src="src/icon/star-blank.png">
+                                </div>
+                                <div class="book-info-title clear-both">Machine Learing 기계학습</div>
+                                <div class="book-info-summary indent">기계 학습에 입문하려는 학생, 개발자, 연구원 모두를 대상으로 하는 책이다. 다양한 수준의 독자가 기계 학습에...</div>
+                                <div class="book-info-autor">저자 오일석</div>
+                                <div class="book-info-autor-summary indent">전북대학교 컴퓨터공학부 교수로 재직 중이며 저서로는 'C 프로그래밍과 스타일링', '컴퓨터 스토리'등이 있다.</div>
+                                <div class="tag-wrapper clear-both"><p class="tag">#딥러닝</p><p class="tag">#머신러닝</p><p class="tag">#MLP</p><p class="tag">#선형대수</p></div>
+                                <div class="book-info-count clear-both">● 쓰레드 수 | 312개</div>
+                                <div class="book-info-count clear-both">● 기여자 수 | 62명</div>
+                            </td>
+                        </tr>
+                    </table>
+                </article>
+                <article>
+                    <table class="book-tab" cellpadding=0 cellspacing=0>
+                        <tr>
+                            <td class="book-tab-thread">
+                                쓰레드
+                            </td>
+                            <td>
+                                소개
+                            </td class="book-tab-info">
+                            <td>
+                                리뷰
+                            </td class="book-tab-review">
+                        </tr>
+                        <tr>
+                            <td class="highlighted"></td>
+                            <td class=""></td>
+                            <td class=""></td>
+                        </tr>
+                    </table>
+                </article>
+                <article>
+                    <div class="chapter-list">
+                        <div class="chapter-list-content">
+                            <div class="chapter-list-left pull-left">
+                                <div class="chapter-list-title">1장  소개</div>
+                                <div class="chapter-list-subheading indent">
+                                    <p>1.1 기계학습이란</p>
+                                    <p>1.2 특징 공간에 대한 이해</p>
+                                    <p>1.3 데이터에 대한 이해</p>
+                                </div>
+                            </div>
+                            <div class="chapter-list-right pull-right">
+                                <div class="tag-wrapper clear-both"><p class="tag">#딥러닝</p><p class="tag">#머신러닝</p><p class="tag">#MLP</p><p class="tag">#선형대수</p></div>
+                                <div class="chapter-list-countwrapper pull-right">
+                                    <div class="chapter-list-count">● 쓰레드 수 | 312개</div>
+                                    <div class="chapter-list-count">● 기여자 수 | 62명</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-list-more"><img src="src/icon/more.png"></div>
+                    </div>
+                    <div class="chapter-list">
+                        <div class="chapter-list-content">
+                            <div class="chapter-list-left pull-left">
+                                <div class="chapter-list-title">1장  소개</div>
+                                <div class="chapter-list-subheading indent">
+                                    <p>1.1 기계학습이란</p>
+                                    <p>1.2 특징 공간에 대한 이해</p>
+                                    <p>1.3 데이터에 대한 이해</p>
+                                </div>
+                            </div>
+                            <div class="chapter-list-right pull-right">
+                                <div class="tag-wrapper clear-both"><p class="tag">#딥러닝</p><p class="tag">#머신러닝</p><p class="tag">#MLP</p><p class="tag">#선형대수</p></div>
+                                <div class="chapter-list-countwrapper pull-right">
+                                    <div class="chapter-list-count">● 쓰레드 수 | 312개</div>
+                                    <div class="chapter-list-count">● 기여자 수 | 62명</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-list-more"><img src="src/icon/more.png"></div>
+                    </div>
+                    <div class="chapter-list">
+                        <div class="chapter-list-content">
+                            <div class="chapter-list-left pull-left">
+                                <div class="chapter-list-title">1장  소개</div>
+                                <div class="chapter-list-subheading indent">
+                                    <p>1.1 기계학습이란</p>
+                                    <p>1.2 특징 공간에 대한 이해</p>
+                                    <p>1.3 데이터에 대한 이해</p>
+                                </div>
+                            </div>
+                            <div class="chapter-list-right pull-right">
+                                <div class="tag-wrapper clear-both"><p class="tag">#딥러닝</p><p class="tag">#머신러닝</p><p class="tag">#MLP</p><p class="tag">#선형대수</p></div>
+                                <div class="chapter-list-countwrapper pull-right">
+                                    <div class="chapter-list-count">● 쓰레드 수 | 312개</div>
+                                    <div class="chapter-list-count">● 기여자 수 | 62명</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-list-more"><img src="src/icon/more.png"></div>
+                    </div>
+                    <div class="chapter-list">
+                        <div class="chapter-list-content">
+                            <div class="chapter-list-left pull-left">
+                                <div class="chapter-list-title">1장  소개</div>
+                                <div class="chapter-list-subheading indent">
+                                    <p>1.1 기계학습이란</p>
+                                    <p>1.2 특징 공간에 대한 이해</p>
+                                    <p>1.3 데이터에 대한 이해</p>
+                                </div>
+                            </div>
+                            <div class="chapter-list-right pull-right">
+                                <div class="tag-wrapper clear-both"><p class="tag">#딥러닝</p><p class="tag">#머신러닝</p><p class="tag">#MLP</p><p class="tag">#선형대수</p></div>
+                                <div class="chapter-list-countwrapper pull-right">
+                                    <div class="chapter-list-count">● 쓰레드 수 | 312개</div>
+                                    <div class="chapter-list-count">● 기여자 수 | 62명</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chapter-list-more"><img src="src/icon/more.png"></div>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
