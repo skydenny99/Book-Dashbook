@@ -62,8 +62,11 @@ article{
 
     text-align: left;
     font-weight: 700;
-    background-color: #C8C8C8;
+    background-color: #707070;
 }
+    .chapter-title-write{
+        background-color: #C8C8C8 !important;
+    }
 
 /* 쓰레드 타이틀 */
 .thread-title{
