@@ -1,5 +1,5 @@
 from idlelib.idle_test.test_run import S
-
+from django.core.files.storage import FileSystemStorage
 from django.db import models
 from django.utils import timezone
 from django.conf import settings
@@ -7,7 +7,7 @@ from enum import Enum
 from django.contrib.auth.models import BaseUserManager, AbstractUser
 
 # Create your models here.
-
+#fs = FileSystemStorage(location='/media/photos')
 """
 class UserType(Enum):
     MANAGE = "Manager of service"
@@ -147,7 +147,7 @@ class Book(models.Model):
     book_hash_tags = models.TextField()
     book_author = models.CharField(max_length=50)
     book_info = models.TextField()
-    book_image_url = models.TextField()
+    book_image = models.ImageField(upload_to=settings.MEDIA_ROOT, null=True, blank=True)
 
     class Meta:
         indexes = [
@@ -155,7 +155,7 @@ class Book(models.Model):
         ]
 
     def get_hash_tag(self):
-        return self.book_hash_tags.split(',')
+        return self.book_hash_tags.split(',,')
 
     def __str__(self):
         return str(self.book_id) + ':' + self.book_title
@@ -165,7 +165,7 @@ class Chapter(models.Model):
     book_id = models.ForeignKey('Book', on_delete=models.CASCADE)
     chapter_num = models.IntegerField()
     chapter_title = models.CharField(max_length=20)
-    chapter_info = models.TextField()
+    chapter_info = models.TextField(null=True, blank=True)
     chapter_hash_tags = models.TextField()
     chapter_subs = models.TextField()
 
@@ -188,13 +188,13 @@ class Chapter(models.Model):
         return len(Thread.objects.filter(book_id=self.book_id).filter(chapter_id=self))
 
     def get_chapter_subs(self):
-        return self.chapter_subs.split(',')
+        return self.chapter_subs.split(',,')
 
     def get_hash_tag(self):
-        return self.chapter_hash_tags.split(',')
+        return self.chapter_hash_tags.split(',,')
 
     def __str__(self):
-        return str(self.book_id) + ':' + str(self.id) + ':' + self.chapter_name
+        return str(self.book_id) + ':' + str(self.id) + ':' + self.chapter_title
 
 
 class ThreadState(Enum):
@@ -240,7 +240,7 @@ class Thread(models.Model):
         ]
 
     def get_hash_tag(self):
-        return self.thread_hash_tags.split(',')
+        return self.thread_hash_tags.split(',,')
 
     def __str__(self):
         return str(self.book_id) + ':' + str(self.id) + ':' + self.thread_title

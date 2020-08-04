@@ -62,10 +62,11 @@
                     <table class="book-info">
                         <tr>
                             <td class="book-info-left">
-                                <div class="book-info-thumbnail"><img src="https://placehold.it/180x240"></div>
+                                <div class="book-info-thumbnail">
+                                    <img src="{{MEDIA_URL}}{{ book.book_image.url}}" style="width:180px;height:240px;"></div>
                                 <div class="book-info-icons">
-                                    <div class="book-info-heart pull-left"><img src="src/icon/heart.png"></div>
-                                    <div class="book-info-notification pull-right"><img src="src/icon/bell.png"></div>
+                                    <div class="book-info-heart pull-left"><img src="{% static 'icon/heart.png' %}"></div>
+                                    <div class="book-info-notification pull-right"><img src="{% static 'icon/bell.png' %}"></div>
                                 </div>
                                 
                             </td>
@@ -118,7 +119,7 @@
                         <div class="chapter-list">
                             <div class="chapter-list-content">
                                 <div class="chapter-list-left pull-left">
-                                    <div class="chapter-list-title">1장  소개</div>
+                                    <div class="chapter-list-title">{{chapter.chapter_num}}장 {{chapter.chapter_title}}</div>
                                     <div class="chapter-list-subheading indent">
                                         {% for sub in chapter.get_chapter_subs %}
                                         <p>{{chapter.chapter_num}}.{{forloop.counter}} {{sub}}</p>
@@ -138,10 +139,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="chapter-list-more"><img src="src/icon/more.png"></div>
-                        </div>
-                    </a>
-                    {% endfor %}
+                            <div class="chapter-list-more"><img src="{% static 'icon/more.png' %}"></div>
+                            </div>
+                        </a>
+                        {% endfor %}
                 </article>
             </section>
         </div>

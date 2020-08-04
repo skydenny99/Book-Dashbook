@@ -63,7 +63,7 @@
                     <table class="book-info">
                         <tr>
                             <td class="book-info-left">
-                                <div class="book-info-thumbnail"><img src="https://placehold.it/180x240"></div>
+                                <div class="book-info-thumbnail"><img src="{{MEDIA_URL}}{{ book.book_image.url}}" style="width:180px;height:240px;"></div>
                                 <div class="book-info-icons">
                                     <div class="book-info-heart pull-left"><img src="{% static 'icon/heart.png' %}"></div>
                                     <div class="book-info-notification pull-right"><img src="{% static 'icon/bell.png' %}"></div>

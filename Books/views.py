@@ -41,21 +41,21 @@ def thread_show(request, book_id=None, chapter_num=None, thread_id=None):
 
 def thread_new(request, book_id=None, chapter_num=None):
     user = auth.authenticate(username='admin', password='hcidusrntlf')
+    book = Book.objects.get(pk=book_id)
+    chapter = Chapter.objects.filter(book_id=book).get(chapter_num=chapter_num)
     # user = request.user
     if request.method == 'POST':
         form = ThreadForm(request.POST)
         if form.is_valid():
             thread = form.save(commit=False)
-            thread.book_id = Book.objects.get(pk=book_id) # pk값 (book_id) url에서 받아오기 = form에서 hidden form element로 보내기(보안)
-            thread.chapter_id = Chapter.objects.filter(book_id=thread.book_id).get(chapter_num=chapter_num)
+            thread.book_id = book
+            thread.chapter_id = chapter
             thread.thread_writer = user
 
             thread.save()
             return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread.id)
     else:
         form = ThreadForm()
-        book = Book.objects.get(pk=book_id)
-        chapter = Chapter.objects.filter(book_id=book).get(chapter_num=chapter_num)
     return render(request, 'Books/thread_write.html', {'book':book, 'chapter':chapter, 'form':form})
 
 
