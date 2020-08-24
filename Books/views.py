@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import RequestContext
 from django.contrib import auth
 from .forms import *
