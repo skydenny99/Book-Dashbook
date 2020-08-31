@@ -248,3 +248,29 @@ article{
 #thread-form .thread-form-button:active{
     background-color: #797979;
 }
+
+#thread-edit .thread-edit-content{
+    width:95%;
+    height:150px;
+    margin-top:-20px;
+    padding:10px;
+    resize:none;
+    outline: 0;
+}
+#thread-edit .thread-edit-bottom{
+    width:100%;
+    text-align: left;
+    margin:0px 0px 0px 0px;
+}
+#thread-edit .thread-edit-button{
+    display:block;
+    width:100px;
+    height:30px;
+    background-color: #585858;
+    color:white;
+    border-radius: 5px;
+    border:0;
+}
+#thread-edit .thread-edit-button:active{
+    background-color: #797979;
+}

@@ -16,6 +16,12 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['post_text']
 
+class ThreadEditForm(forms.ModelForm):
+
+    class Meta:
+        model = Thread
+        fields = ['thread_text']
+
 class CommentForm(forms.ModelForm):
 
     class Meta:

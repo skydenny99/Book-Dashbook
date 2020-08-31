@@ -13,10 +13,22 @@
     crossorigin="anonymous"></script>
     <script>
         $(document).ready(function(){
+            /* 기본 */
+            $(".thread-comment-edit").hide();
+
+
+            /* 메뉴 */
             $('.outer-menu-item').hover(function(){
                 $(this).find('.inner-menu').show();
             }, function(){
                 $(this).find('.inner-menu').hide();
+            });
+
+            /* Thread Edit */
+            $('.thread-edit').click(function(){
+                $(this).closest("td").find('.thread-comment-edit').show();
+                $(this).closest("td").find('.thread-sub-text').hide();
+                $(this).closest("td").find('.thread-comment-mod').hide();
             });
         });
     </script>
@@ -117,7 +129,14 @@
                                     {% endif %}
                                     {% endfor %}
                                 </div>
-                                <div class="thread-comment-mod"><a href="#">Edit</a><a href="#">Add Comment</a></div>
+                                <div class="thread-comment-edit">
+                                    <form id="thread-edit" action="{% url 'thread_edit' thread.book_id.book_id chapter_num thread.id %}" method="post">{% csrf_token %}
+                                        <textarea form="thread-edit" rows="8" class="thread-edit-content" placeholder="" name="thread_text">{{ thread.thread_text }}</textarea>
+                                        <br>
+                                        <div class="thread-edit-bottom"><input class="thread-edit-button" type="submit" value="Edit"></div>
+                                    </form>
+                                </div>
+                                <div class="thread-comment-mod"><a class="thread-edit" href="#">Edit</a><a href="#">Add Comment</a></div>
                             </td>
 
                             <td class="thread-data thread-right">

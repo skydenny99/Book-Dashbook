@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.template import RequestContext
 from django.contrib import auth
 from .forms import *
@@ -57,6 +57,21 @@ def thread_new(request, book_id=None, chapter_num=None):
     else:
         form = ThreadForm()
     return render(request, 'Books/thread_write.html', {'book':book, 'chapter':chapter, 'form':form})
+
+def thread_edit(request, book_id=None, chapter_num=None, thread_id=None):
+    user = auth.authenticate(username='admin', password='hcidusrntlf')
+    # user = request.user
+    if request.method == 'POST':
+        form = ThreadEditForm(request.POST)
+        if form.is_valid():
+            
+            thread = Thread.objects.get(pk=thread_id)
+            thread.thread_text = form.cleaned_data['thread_text']
+            thread.save()
+            return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread_id)
+    else:
+        form = ThreadEditForm()
+    return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread_id)
 
 
 def post_new(request, book_id=None, chapter_num=None, thread_id=None):
