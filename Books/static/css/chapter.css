@@ -62,8 +62,11 @@ article{
 
     text-align: left;
     font-weight: 700;
-    background-color: #C8C8C8;
+    background-color: #707070;
 }
+    .chapter-title-write{
+        background-color: #C8C8C8 !important;
+    }
 
 /* 쓰레드 타이틀 */
 .thread-title{
@@ -197,13 +200,14 @@ article{
 .form{
     margin-bottom: 50px;
 }
-#thread-form .thread-form-text{
+.form-text{
     margin-left:35px;
     margin-bottom: 10px;
     text-align: left;
     font-weight: 600;
 }
-#thread-form .thread-form-title{
+    
+.form-title{
     width:90%;
     height:10px;
     margin-bottom: 20px;
@@ -211,7 +215,7 @@ article{
     resize:none;
     outline: 0;
 }
-#thread-form .thread-form-content{
+.form-content{
     width:90%;
     height:300px;
     margin-bottom: 20px;
@@ -219,7 +223,7 @@ article{
     resize:none;
     outline: 0;
 }
-#thread-form .thread-form-tag{
+.form-tag{
     width:90%;
     height:10px;
     margin-bottom: 10px;
@@ -227,15 +231,80 @@ article{
     resize:none;
     outline: 0;
 }
+.form-chapter-title{
+    width:85%;
+    height:10px;
+    margin-bottom: 20px;
+    margin-left:5%;
+    padding:10px;
+    resize:none;
+    outline: 0;
+}
+.form-chapter-heading{
+    width:85%;
+    margin-left:65px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 600;
+
+    background-color: #C8C8C8C8;
+}
+.form-chapter-text{
+    width:85%;
+    margin-left:85px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 600;
+}
+.form-chapter-plus{
+    display: inline-block !important;
+    width:20% !important; 
+    height:15px !important;
+    margin: 0px 0px 20px 5% !important;
+    padding:10px !important;
+    resize:none !important;
+    font-size: 13px;
+}
+
+.form-chapter-remove{
+    display: inline-block !important;
+    width:20% !important; 
+    height:15px !important;
+    margin: 0px 0px 20px 5% !important;
+    padding:10px !important;
+    resize:none !important;
+    font-size: 13px;
+}
+
+.form-plus{
+    display: inline-block !important;
+    width:90% !important; 
+    height:15px !important;
+    margin: 0px 0px 20px 5% !important;
+    padding:10px !important;
+    resize:none !important;
+    font-size: 13px;
+}
+
+.form-remove{
+    display: inline-block !important;
+    width:90% !important; 
+    height:15px !important;
+    margin: 0px 0px 20px 5% !important;
+    padding:10px !important;
+    resize:none !important;
+    font-size: 13px;
+}
+
 
 /* 입력 양식 - 버튼 */
 
-#thread-form .thread-form-bottom{
+.form-bottom{
     width:100%;
     text-align: left;
     margin:10px 0px 0px 5px;
 }
-#thread-form .thread-form-button{
+.form-button{
     display:block;
     width:130px;
     height:30px;
@@ -244,11 +313,11 @@ article{
     border-radius: 5px;
     border:0;
 }
-#thread-form .thread-submit-button:active{
+.form-button:active{
     background-color: #797979;
 }
 
-#thread-form .thread-submit-button{
+.submit-button{
     width:80px !important;
 }
 
