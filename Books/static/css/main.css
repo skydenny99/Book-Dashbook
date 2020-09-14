@@ -1,3 +1,8 @@
+/*
+main.html
+login.html
+*/
+
 /* 중앙 내용물 */
 article{
     padding: 0 10px 20px 10px;
@@ -43,3 +48,43 @@ article{
             border-radius: 10px;
         }
 
+/* 로그인 입력 양식 */
+#login-form{
+    width:300px;
+    margin: 100px auto;
+}
+    #login-form input{
+        display:block;
+        width:100%;
+        height:35px;
+        
+        padding: 0 10px 0 10px;
+        border : 1px solid #C8C8C8C8 ;
+        border-radius: 5px;
+    }
+    #login-form input[type="text"]{
+        width: -moz-calc(100% - 22px);
+        width: -webkit-calc(100% - 22px);
+        width: -o-calc(100% - 22px);
+        width: calc(100% - 22px);
+
+        margin: 0 0 10px 0;
+    }
+    #login-form .form-button{
+        height:40px;
+        background-color: #585858;
+        color:white;
+    }
+        #login-form .form-button:active{
+            background-color: #797979;
+        }
+    #login-form .form-etc{
+        color : #797979;
+        font-size: 14px;
+        margin:10px 0 10px 0;
+    }
+        #login-form .form-etc div{
+            display : inline-block;
+
+            margin:10px;
+        }

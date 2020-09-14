@@ -23,14 +23,17 @@
             arr_chapter[1] = 1;
 
             var chapter_count = 1;
+            var $form = $('.form-chapter-wrapper:first').clone();
+            //var $chapter = $(this).parent().find('.form-chapter-title:last').clone();
+            var $chapter = $('.form-chapter-wrapper:first .form-chapter-title:last').clone();
             $('.form-plus').click(function(){
-                var $sub = $('.form-chapter-wrapper:first').clone();
+                var $form_clone = $form.clone();
                 arr_chapter[++chapter_count] = 1;
-                $sub.find('#form-number').text(chapter_count);
-                $sub.find('.form-chapter-heading').text(chapter_count +' 장');
-                $sub.find('.form-chapter-plus').click(add_sub);
-                $sub.find('.form-chapter-remove').click(remove_sub);
-                $sub.insertBefore($(this));
+                $form_clone.find('#form-number').text(chapter_count);
+                $form_clone.find('.form-chapter-heading').text(chapter_count +' 장');
+                $form_clone.find('.form-chapter-plus').click(add_sub);
+                $form_clone.find('.form-chapter-remove').click(remove_sub);
+                $form_clone.insertBefore($(this));
             });
             $('.form-remove').click(function(){
                 if(chapter_count>1){
@@ -41,9 +44,9 @@
             /* 챕터 내용 추가 */
             function add_sub(){
                 var chapter_number = $(this).parent().find('#form-number').text();
-                var $sub = $(this).parent().find('.form-chapter-title:last').clone();
-                $sub.attr('name','chapter'+''+'-title-sub'+ ++arr_chapter[chapter_number]);
-                $sub.insertBefore($(this));
+                var $chapter_clone = $chapter.clone();
+                $chapter_clone.attr('name','chapter'+''+'-title-sub'+ ++arr_chapter[chapter_number]);
+                $chapter_clone.insertBefore($(this));
             }
             $('.form-chapter-plus').click(add_sub);
             function remove_sub(){
@@ -106,18 +109,6 @@
                         <textarea form="book-form" rows="10" class="form-content" placeholder="내용을 입력하세요" name="info"></textarea>
                         <div class="form-index">
                             <div class="form-text">목차</div>
-                                <div class="hide">
-                                    <div class="form-chapter-wrapper">
-                                        <div id="form-number"class="hide">1</div>
-                                        <div class="form-chapter-heading indent">1 장</div>
-                                        <div class="form-chapter-text">제목</div>
-                                        <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter-1-title">
-                                        <div class="form-chapter-text">내용</div>
-                                        <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter-1-title-sub1">
-                                        <div class="form-chapter-plus form-button">Add</div>
-                                        <div class="form-chapter-remove form-button">Remove</div>
-                                    </div>
-                                </div>
                             <div class="form-chapter-wrapper">
                                 <div id="form-number"class="hide">1</div>
                                 <div class="form-chapter-heading indent">1 장</div>
