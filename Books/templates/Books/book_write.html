@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HCI StartUp Project - Book Write</title>
-    <link rel="stylesheet" type="text/css" href="./src/css/common.css">
-    <link rel="stylesheet" type="text/css" href="./src/css/chapter.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/chapter.css' %}">
     <script
     src="https://code.jquery.com/jquery-3.5.1.js"
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -68,16 +69,16 @@
                 <div class="pull-right">
                     <ul class="outer-menu">
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/chat.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/chat.png' %}"></span>
                         </li>
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/lightbulb.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/lightbulb.png' %}"></span>
                         </li>
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/user.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/user.png' %}"></span>
                         </li>
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/menu.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/menu.png' %}"></span>
                         </li>
                     </ul>
                 </div>
@@ -97,44 +98,32 @@
             <section id="main-section">
                
                 <article class="form">
-                    <form id="book-form" action="" method="post">
+                    <form id="book-form" action="{% url 'book_new' %}" method="post"> {% csrf_token %}
                         <div class="form-text">제목</div>
-                        <input class="form-title" type="text" placeholder="내용을 입력하세요" name="title">
+                        <input class="form-title" type="text" placeholder="내용을 입력하세요" name="book_title">
                         <div class="form-text">저자</div>
-                        <input class="form-title" type="text" placeholder="내용을 입력하세요" name="author">
+                        <input class="form-title" type="text" placeholder="내용을 입력하세요" name="book_author">
                         <div class="form-text">설명</div>
-                        <textarea form="book-form" rows="10" class="form-content" placeholder="내용을 입력하세요" name="info"></textarea>
+                        <textarea form="book-form" rows="10" class="form-content" placeholder="내용을 입력하세요" name="book_info"></textarea>
                         <div class="form-index">
                             <div class="form-text">목차</div>
-                                <div class="hide">
-                                    <div class="form-chapter-wrapper">
-                                        <div id="form-number"class="hide">1</div>
-                                        <div class="form-chapter-heading indent">1 장</div>
-                                        <div class="form-chapter-text">제목</div>
-                                        <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter-1-title">
-                                        <div class="form-chapter-text">내용</div>
-                                        <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter-1-title-sub1">
-                                        <div class="form-chapter-plus form-button">Add</div>
-                                        <div class="form-chapter-remove form-button">Remove</div>
-                                    </div>
+                                <div class="form-chapter-wrapper">
+                                    <input id="form-number"class="hide" type="number" value="1" readonly name="chapter_num">
+                                    <div class="form-chapter-heading indent">1 장</div>
+                                    <div class="form-chapter-text">제목</div>
+                                    <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter_title">
+                                    <div class="form-chapter-text">내용</div>
+                                    <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter_subs">
+                                    <div class="form-chapter-plus form-button">Add</div>
+                                    <div class="form-chapter-remove form-button">Remove</div>
                                 </div>
-                            <div class="form-chapter-wrapper">
-                                <div id="form-number"class="hide">1</div>
-                                <div class="form-chapter-heading indent">1 장</div>
-                                <div class="form-chapter-text">제목</div>
-                                <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter-1-title">
-                                <div class="form-chapter-text">내용</div>
-                                <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter-1-title-sub1">
-                                <div class="form-chapter-plus form-button">Add</div>
-                                <div class="form-chapter-remove form-button">Remove</div>
-                            </div>
                             <div class="form-plus form-button">Add</div>
                             <div></div>
                             <div class="form-remove form-button">Remove</div>
                         </div>
                         <div class="form-text">해쉬태그</div>
-                        <input class="form-tag" type="text" placeholder="내용을 입력하세요" name="tag">
-                        <div class="form-bottom"><input class="form-button submit-button" type="button" value="Answer"></div>
+                        <input class="form-tag" type="text" placeholder="내용을 입력하세요" name="book_hash_tags">
+                        <div class="form-bottom"><input class="form-button submit-button" type="submit" value="Answer"></div>
                     </form>
                 </article>
             </section>

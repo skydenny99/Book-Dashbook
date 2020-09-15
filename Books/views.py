@@ -9,6 +9,24 @@ from .models import *
 def main_home(request):
     return render(request, 'Books/main.html', {})
 
+def book_new(request):
+    user = auth.authenticate(username='admin', password='hcidusrntlf')
+    if request.method == 'POST':
+        book_form = BookForm(request.POST)
+        chapter_form = ChapterForm(request.POST)
+        print("in")
+        if book_form.is_valid() and chapter_form.is_valid():
+            print("hi")
+            book = book_form.save()
+            chapter = chapter_form.save(commit=False)
+            chapter.book_id = book
+            chapter.save()
+
+            #return redirect('book_show', book_id=Book.objects.filter(book_title__exact=book_form.cleaned_data['book_title']).order_by('-book_id')[0].book_id)
+            return redirect('book_show', book_id=book.book_id)
+    else:
+        form = BookForm()
+    return render(request, 'Books/book_write.html', {})
 
 def book_show(request, book_id=None):
     book = get_object_or_404(Book, pk=book_id)
@@ -43,15 +61,17 @@ def thread_new(request, book_id=None, chapter_num=None):
     user = auth.authenticate(username='admin', password='hcidusrntlf')
     book = Book.objects.get(pk=book_id)
     chapter = Chapter.objects.filter(book_id=book).get(chapter_num=chapter_num)
+    print("in views")
     # user = request.user
     if request.method == 'POST':
         form = ThreadForm(request.POST)
+        print("out")
         if form.is_valid():
+            print("in")
             thread = form.save(commit=False)
             thread.book_id = book
             thread.chapter_id = chapter
             thread.thread_writer = user
-
             thread.save()
             return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread.id)
     else:

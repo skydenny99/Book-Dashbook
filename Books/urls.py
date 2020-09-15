@@ -12,6 +12,7 @@ urlpatterns = [
     path('books/<int:book_id>/chapter/<int:chapter_num>/thread/<int:thread_id>/post-new', views.post_new, name='post_new'),
     path('books/<int:book_id>/chapter/<int:chapter_num>/thread/<int:thread_id>/thread-edit', views.thread_edit, name='thread_edit'),
     path('books/<int:book_id>/chapter/<int:chapter_num>/thread/<int:thread_id>/comment-new', views.comment_new, name='comment_new'),
+    path('book-new', views.book_new, name='book_new')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
