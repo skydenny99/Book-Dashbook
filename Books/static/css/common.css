@@ -15,6 +15,10 @@ input:focus{outline: none;}
 .align-center { text-align: center; }
 .align-right { text-align: right; }
 .align-justify { text-align: justify; }
+.no-drag {-ms-user-select: none; -moz-user-select: -moz-none; -webkit-user-select: none; -khtml-user-select: none; user-select:none;}
+.indent{padding-left:30px;}
+.hide{display: none;}
+.pointer{cursor: pointer;}
 
 /* 페이지 */
 body{
@@ -47,7 +51,7 @@ body{
     /*border-top: 1px solid #C8C8C8;*/
     border-bottom: 1px solid #C8C8C8;
     margin-bottom: 20px;
-    height: 100px; /* overflow: hidden 을 넣지 않는 이유는 풀다운 메뉴를 넣을때 짤리기 때문 */
+    height: 120px; /* overflow: hidden 을 넣지 않는 이유는 풀다운 메뉴를 넣을때 짤리기 때문 */
 }
 
 
@@ -132,7 +136,7 @@ body{
     color: #838383;
 }
 
-.input-searchL:focus{
+.input-search:focus{
     border-color: rgba(82,168,236,0.8);
     outline: 0;
     box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
@@ -155,7 +159,7 @@ body{
 #content{overflow: hidden;}
 #main-section{
     margin:0 auto;
-    width: 80%;
+    width: 970px;
 }
 #main-aside{
     float: right;
