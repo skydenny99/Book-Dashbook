@@ -1,22 +1,25 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template import RequestContext
-from django.contrib import auth
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, user_passes_test
 from .forms import *
 from .models import *
 # Create your views here.
 
+def author_check(user):
+    if user.is_anonymous:
+        return False
+    return user.is_author
 
 def main_home(request):
     return render(request, 'Books/main.html', {})
 
+@user_passes_test(author_check, login_url='/login_view')
 def book_new(request):
-    user = auth.authenticate(username='admin', password='hcidusrntlf')
+    print(request.user)
     if request.method == 'POST':
         book_form = BookForm(request.POST)
         chapter_form = ChapterForm(request.POST)
-        print("in")
         if book_form.is_valid() and chapter_form.is_valid():
-            print("hi")
             book = book_form.save()
             chapter = chapter_form.save(commit=False)
             chapter.book_id = book
@@ -56,13 +59,12 @@ def thread_show(request, book_id=None, chapter_num=None, thread_id=None):
 
     return render(request, 'Books/thread.html', {'thread':thread, 'posts':posts, 'chapter_num':chapter_num, 'comments':comments})
 
-
+@login_required
 def thread_new(request, book_id=None, chapter_num=None):
-    user = auth.authenticate(username='admin', password='hcidusrntlf')
     book = Book.objects.get(pk=book_id)
     chapter = Chapter.objects.filter(book_id=book).get(chapter_num=chapter_num)
     print("in views")
-    # user = request.user
+    user = request.user
     if request.method == 'POST':
         form = ThreadForm(request.POST)
         print("out")
@@ -78,14 +80,17 @@ def thread_new(request, book_id=None, chapter_num=None):
         form = ThreadForm()
     return render(request, 'Books/thread_write.html', {'book':book, 'chapter':chapter, 'form':form})
 
+@login_required
 def thread_edit(request, book_id=None, chapter_num=None, thread_id=None):
-    user = auth.authenticate(username='admin', password='hcidusrntlf')
-    # user = request.user
+    user = request.user
     if request.method == 'POST':
         form = ThreadEditForm(request.POST)
         if form.is_valid():
             
             thread = Thread.objects.get(pk=thread_id)
+            if thread.thread_writer != user:
+                print("not matching user")
+                return
             thread.thread_text = form.cleaned_data['thread_text']
             thread.save()
             return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread_id)
@@ -93,10 +98,9 @@ def thread_edit(request, book_id=None, chapter_num=None, thread_id=None):
         form = ThreadEditForm()
     return redirect('thread_show', book_id=book_id, chapter_num=chapter_num, thread_id=thread_id)
 
-
+@login_required
 def post_new(request, book_id=None, chapter_num=None, thread_id=None):
-    user = auth.authenticate(username='admin', password='hcidusrntlf')
-    # user = request.user
+    user = request.user
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
@@ -117,10 +121,9 @@ def post_new(request, book_id=None, chapter_num=None, thread_id=None):
         form = PostForm()
     return render(request, 'Books/thread.html', {'form':form})
 
-
+@login_required
 def comment_new(request, book_id, chapter_num=None, thread_id=None, post_id=None):
-    user = auth.authenticate(username='admin', password='hcidusrntlf')
-    # user = request.user
+    user = request.user
     if request.method == 'POST':
         form = CommentForm(request.POST)
         if form.is_valid():
@@ -139,10 +142,23 @@ def comment_new(request, book_id, chapter_num=None, thread_id=None, post_id=None
 def sign_up(request):
     pass
 
+def login_view(request):
+    return render(request, 'Books/login.html', {})
 
-def login(request):
-    pass
+def login_user(request):
+    username = request.POST['id']
+    password = request.POST['pw']
+    user = authenticate(request, username=username, password=password)
+    if user is not None:
+        login(request, user)
+        print("login success")
+        return render(request, 'Books/main.html', {})
+    else:
+        print("login fail")
+        return render(request, 'Books/main.html', {})
 
 
-def logout(request):
-    pass
+
+def logout_user(request):
+    logout(request)
+    return render(request, 'Books/main.html', {})

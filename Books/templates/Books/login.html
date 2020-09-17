@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HCI StartUp Project - main</title>
-    <link rel="stylesheet" type="text/css" href="./src/css/common.css">
-    <link rel="stylesheet" type="text/css" href="./src/css/main.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
     <script
     src="https://code.jquery.com/jquery-3.5.1.js"
     integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -30,19 +31,21 @@
                 <div class="pull-right">
                     <ul class="outer-menu">
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/chat.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/chat.png' %}"></span>
                         </li>
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/lightbulb.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/lightbulb.png' %}"></span>
                         </li>
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/user.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/user.png' %}"></span>
                         </li>
                         <li class="outer-menu-item">
-                            <span class="menu-title"><img src="src/icon/menu.png"></span>
+                            <span class="menu-title"><img src="{% static 'icon/menu.png' %}"></span>
+
                             <ul class="inner-menu">
-                                <li class="inner-menu-item"><a href="#">새 책 작성</a></li>
+                                <li class="inner-menu-item"><a href="{% url 'book_new' %}">새 책 작성</a></li>
                             </ul>
+
                         </li>
                     </ul>
                 </div>
@@ -64,10 +67,10 @@
         <div id="content">
             <section id="main-section">
                 <article>
-                    <form id="login-form" action="" method="post">
+                    <form id="login-form" action="{% url 'book_login' %}" method="post">{% csrf_token %}
                         <input class="form-id" type="text" placeholder="아이디" name="id" autocomplete="off">
-                        <input class="form-pw" type="text" placeholder="비밀번호" name="pw" autocomplete="off">
-                        <input class="form-button submit-button pointer" type="button" value="로그인">
+                        <input class="form-pw" type="password" placeholder="비밀번호" name="pw" autocomplete="off">
+                        <input class="form-button submit-button pointer" type="submit" value="로그인">
                         <div class="form-etc">
                             <div class="pointer">아이디 찾기</div>
                             <div class="pointer">비밀번호 찾기</div>

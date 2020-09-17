@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib.auth.forms import UserChangeForm, UserCreationForm
 
 from .models import *
 
@@ -36,3 +37,17 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['comment_text']
+
+class CustomUserCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm):
+        model = CustomUser
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_author', 'user_info']
+    pass
+
+class CustomUserChangeForm(UserChangeForm):
+
+    class Meta(UserChangeForm):
+        model = CustomUser
+        fields = ['username', 'email', 'first_name', 'last_name', 'is_author', 'user_info']
+    pass
