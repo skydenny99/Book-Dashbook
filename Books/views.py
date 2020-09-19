@@ -14,16 +14,20 @@ def main_home(request):
     return render(request, 'Books/main.html', {})
 
 @user_passes_test(author_check, login_url='/login_view')
-def book_new(request):
+def book_new(request, chapter_count=0):
     print(request.user)
     if request.method == 'POST':
         book_form = BookForm(request.POST)
-        chapter_form = ChapterForm(request.POST)
-        if book_form.is_valid() and chapter_form.is_valid():
+        if book_form.is_valid():
             book = book_form.save()
-            chapter = chapter_form.save(commit=False)
-            chapter.book_id = book
-            chapter.save()
+            for i in range(1, chapter_count+1):
+                chapter = Chapter()
+                chapter.book_id = book
+                chapter.chapter_num = i
+                chapter.chapter_title = request.POST.get('chapter_title' + str(i), '')
+                chapter.chapter_subs = request.POST.get('chapter_subs' + str(i), '')
+                print(i, "chapter")
+                chapter.save()
 
             #return redirect('book_show', book_id=Book.objects.filter(book_title__exact=book_form.cleaned_data['book_title']).order_by('-book_id')[0].book_id)
             return redirect('book_show', book_id=book.book_id)

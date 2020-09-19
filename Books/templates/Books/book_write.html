@@ -30,8 +30,11 @@
             $('.form-plus').click(function(){
                 var $form_clone = $form.clone();
                 arr_chapter[++chapter_count] = 1;
-                $form_clone.find('#form-number').text(chapter_count);
+                $form_clone.find('#form-number').val(chapter_count);
+                $form_clone.find('#form-number').attr('name', 'chapter_num'+chapter_count);
                 $form_clone.find('.form-chapter-heading').text(chapter_count +' 장');
+                $form_clone.find('.form-chapter-title').attr('name', 'chapter_title'+chapter_count);
+                $form_clone.find('.form-chapter-subs').attr('name', 'chapter_subs'+chapter_count);
                 $form_clone.find('.form-chapter-plus').click(add_sub);
                 $form_clone.find('.form-chapter-remove').click(remove_sub);
                 $form_clone.insertBefore($(this));
@@ -59,6 +62,13 @@
                 }
             }
             $('.form-chapter-remove').click(remove_sub);
+
+            $('.submit-button').click(function(){
+                var tmp = $('#book-form').attr('action')
+                alert(tmp)
+                $('#book-form').attr('action', tmp+'/'+chapter_count)
+                $('#book-form').submit()
+            });
         });
     </script>
 </head>
@@ -114,12 +124,12 @@
                         <div class="form-index">
                             <div class="form-text">목차</div>
                                 <div class="form-chapter-wrapper">
-                                    <input id="form-number"class="hide" type="number" value="1" readonly name="chapter_num">
+                                    <input id="form-number" class="hide" type="number" value="1" name="chapter_num1">
                                     <div class="form-chapter-heading indent">1 장</div>
                                     <div class="form-chapter-text">제목</div>
-                                    <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter_title">
+                                    <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter_title1">
                                     <div class="form-chapter-text">내용</div>
-                                    <input class="form-chapter-title" type="text" placeholder="내용을 입력하세요" name="chapter_subs">
+                                    <input class="form-chapter-subs" type="text" placeholder="내용을 입력하세요" name="chapter_subs1">
                                     <div class="form-chapter-plus form-button">Add</div>
                                     <div class="form-chapter-remove form-button">Remove</div>
                                 </div>
@@ -129,7 +139,7 @@
                         </div>
                         <div class="form-text">해쉬태그</div>
                         <input class="form-tag" type="text" placeholder="내용을 입력하세요" name="book_hash_tags">
-                        <div class="form-bottom"><input class="form-button submit-button" type="submit" value="Answer"></div>
+                        <div class="form-bottom"><input class="form-button submit-button" type="button" value="Answer"></div>
                     </form>
                 </article>
             </section>

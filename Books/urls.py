@@ -14,6 +14,7 @@ urlpatterns = [
     path('books/<int:book_id>/chapter/<int:chapter_num>/thread/<int:thread_id>/thread-edit', views.thread_edit, name='thread_edit'),
     path('books/<int:book_id>/chapter/<int:chapter_num>/thread/<int:thread_id>/comment-new', views.comment_new, name='comment_new'),
     path('book-new', views.book_new, name='book_new'),
+    path('book-new/<int:chapter_count>', views.book_new, name='book_new'),
     path('login', views.login_user, name='book_login'),
     path('logout', views.logout_user, name='book_logout')
 ]

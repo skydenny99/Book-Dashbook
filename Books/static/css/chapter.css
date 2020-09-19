@@ -237,7 +237,8 @@ article{
     resize:none;
     outline: 0;
 }
-.form-chapter-title{
+.form-chapter-subs, .form-chapter-title
+{
     width:85%;
     height:10px;
     margin-bottom: 20px;
@@ -246,6 +247,7 @@ article{
     resize:none;
     outline: 0;
 }
+
 .form-chapter-heading{
     width:85%;
     margin-left:65px;
