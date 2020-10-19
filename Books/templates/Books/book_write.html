@@ -65,7 +65,6 @@
 
             $('.submit-button').click(function(){
                 var tmp = $('#book-form').attr('action')
-                alert(tmp)
                 $('#book-form').attr('action', tmp+'/'+chapter_count)
                 $('#book-form').submit()
             });

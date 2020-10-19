@@ -11,7 +11,7 @@ from .managers import CustomUserManager
 #fs = FileSystemStorage(location='/media/photos')
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=10, unique=True)
+    username = models.CharField(max_length=10)
     email = models.EmailField(max_length=50, unique=True)
     first_name = models.CharField(max_length=30, null=True, blank=True)
     last_name = models.CharField(max_length=30, null=True, blank=True)
@@ -62,7 +62,7 @@ class Chapter(models.Model):
     chapter_num = models.IntegerField()
     chapter_title = models.CharField(max_length=20)
     chapter_info = models.TextField(null=True, blank=True)
-    chapter_hash_tags = models.TextField()
+    chapter_hash_tags = models.TextField() # ,, 구분되는 배열
     chapter_subs = models.TextField()
 
     class Meta:
